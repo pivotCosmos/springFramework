@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+	<!-- @Autowired를 자바에서 사용하기 위해서 bean등록해야한다.
+		  : 먼저 byType으로 주입! 만약, 동일한 객체가 2개 이상이면 byName으로 찾는다.
+	 -->
+	<!-- <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/> -->
+	
+	
+	<!-- 여러개의 @annotation을 한번에 등록할수 있는 context 추가한다.
+			* RequiredAnnotationBeanPostProcessor
+			* AutowiredAnnotationBeanPostProcessor
+			* CommonAnnotationBeanPostProcessor
+	 -->
+	<context:annotation-config/>
+	
+	
+	<bean class="sample09.EmpDTO" id="dto" p:empno="100"/>
+	
+	<bean class="sample09.EmpDTO" id="dto2" p:empno="200">
+		<qualifier value="aa"/>
+	</bean>
+	
+	<bean class="sample09.EmpService" id="service"/>
+	
+	<bean class="sample09.EmpController" id="controller"/>
+
+	<bean class="sample09.ResourceBean" id="resourceBean"/>
+
+</beans>
