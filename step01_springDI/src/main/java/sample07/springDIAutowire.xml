@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 객체생성 -->
+	<bean class="sample07.MemberVO" id="memberVO" p:name="희정" p:age="22" p:addr="서울"/>
+	<bean class="sample07.MemberVO" id="m" p:name="나영" p:age="33" p:addr="제주도"/>
+	
+	
+	<!-- <bean class="sample07.MemberController" id="controller">
+		<constructor-arg ref="memberVO"/>
+		<constructor-arg ref="memberVO"/>
+	</bean> -->
+	
+	<!-- <bean class="sample07.MemberController" id="controller">
+		<property name="member" ref="memberVO"/>
+		<property name="memberVO" ref="memberVO"/>
+	</bean> -->
+	
+	<!-- 
+		autowire속성 : xml의 태그를 간소화시킬수 있다.
+		 - byType : setXxx() 호출한다. type이 같은 객체를 자동으로 찾아서 주입!!!
+		 			만약, 동일한 type의 (bean으로)생성된 객체가 2개이상있다면 에러발생(이런경우 byName한다)
+		 
+		 - byName : setXxx() 호출한다. xml의 id와 java의 property의 이름이 동일한 객체를 찾아서 주입
+		 
+		 - constructor : 생성자 호출한다.
+		 				 먼저 byType으로 찾고, 만약 동일한 객체가 여러개 있으면 byName으로 찾는다.
+		 				 여기서 byName은 xml의 id와 java의 생성자의 parameter의 이름과 동일.
+		 
+	 -->
+	<bean class="sample07.MemberController" id="controller" autowire="constructor"/>
+	
+</beans>
