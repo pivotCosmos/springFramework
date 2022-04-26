@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 객체생성
+		 ko = new MessageKoImpl() 동일
+		    scope="prototype" 는 지연초기화(즉 필요할때마다 객체를 새롭게 생성해서 제공)
+	 -->
+	<bean class="sample01.MessageKoImpl" id="ko"/>
+	
+	<bean class="sample01.MessageEnImpl" id="en"/>
+	<bean class="sample01.MessageEnImpl" id="en2"/>
+	
+</beans>

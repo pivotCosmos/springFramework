@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 객체 생성 -->
+	<bean class="sample02.Member" id="m1"/>
+	<bean class="sample02.Member" id="m2">
+		<constructor-arg value="jang"/> <!-- 인수 한개 받는 생성자 호출 -->
+	</bean>
+	
+	<bean class="sample02.Member" id="m3">
+		<constructor-arg value="hee"/> <!-- 인수 2개받는 생성자 -->
+		<constructor-arg value="20" type="int"/>
+	</bean>
+	
+	<bean class="sample02.Member" id="m4">
+		<constructor-arg value="서울" index="2"/>
+		<constructor-arg value="king" index="0"/>
+		<constructor-arg value="25" index="1"/>
+	</bean>
+	
+	<bean class="sample02.Member" id="m5">
+		<constructor-arg>
+			<value>queen</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>1234</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>22</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>오리역</value>
+		</constructor-arg>
+	</bean>
+	
+	<bean class="sample02.MemberDAO" id="memberDAO"/>
+
+	<bean class="sample02.MemberService" id="service">
+		<constructor-arg ref="memberDAO"/>
+		<constructor-arg ref="m5"/>
+	</bean>
+	
+	
+</beans>
