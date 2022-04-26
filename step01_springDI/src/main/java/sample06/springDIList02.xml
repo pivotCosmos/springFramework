@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 외부의 ~.xml 문서 import하기 -->
+	<import resource="classpath:sample06/springDIList01.xml"/>
+	
+	<!-- ListBean을 생성 -->
+	<bean class="sample06.ListBean" id="listBean">
+		<property name="intList">
+			<list>
+				<value>10</value>
+				<value>20</value>
+				<value>30</value>
+				<value>40</value>
+			</list>
+		</property>
+		<property name="strList">
+			<list>
+				<value>사과</value>
+				<value>딸기</value>
+				<value>배</value>
+				<value>수박</value>
+			</list>
+		</property>
+		<property name="customerList">
+			<list>
+				<ref bean="cu1"/>
+				<ref bean="cu2"/>
+				<ref bean="cu3"/>
+				<ref bean="cu4"/>
+				<bean class="sample06.Customer">
+					<property name="id" value="hee"/>
+					<property name="age" value="33"/>
+					<property name="addr" value="대구"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>

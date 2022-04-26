@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 외부의 ~.properties파일의 위치를 설정하는 클래스를 선언 -->
+	<!-- <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:sample06/customerInfo01.properties</value>
+		</property>
+	</bean> -->
+	
+	<!-- <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		<property name="locations">
+			<array>
+				<value>classpath:sample06/customerInfo01.properties</value>
+				<value>classpath:sample06/customerInfo02.properties</value>
+			</array>
+		</property>
+	</bean> -->
+	
+	<!-- 위의 PropertySourcesPlaceholderConfigurer를 자동으로 등록해주는 설정 -->
+	<context:property-placeholder
+	 location="classpath:sample06/customerInfo01.properties,classpath:sample06/customerInfo02.properties"/>
+	
+	
+	<!-- Customer객체를 여러개 생성 -->
+	<bean class="sample06.Customer" id="cu1">
+		<constructor-arg value="jang"/><!-- 인수 한개 받는 생성자 호출 -->
+		<property name="addr" value="오리역"/>
+		<property name="age" value="20"/>
+	</bean>
+	
+	<bean class="sample06.Customer" id="cu2" p:addr="서울" p:age="22" p:id="kim"/>
+	
+	<bean class="sample06.Customer" id="cu3">
+		<property name="id" value="${id}"/>
+		<property name="age" value="${age}"/>
+		<property name="addr" value="${addr}"/>
+	</bean>
+	
+	<bean class="sample06.Customer" id="cu4" p:id="${cu.id}" p:age="${cu.age}" p:addr="${cu.addr}"/>
+	
+	
+</beans>
