@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	
+	<!-- 객체생성 -->
+	<bean class="kosta.exam.MessageServiceImpl" id="target"/>
+	<bean class="kosta.exam.TimerAdvice" id="advice"/>
+	
+	<!-- xml기반 aop설정을 통해 target대상의 메소드가 호출될때 advice가 적용되도록 세팅한다. -->
+	<aop:config>
+		<aop:aspect id="aspect" ref="advice">
+			<aop:around method="around" pointcut="execution(public * kosta.exam.*ServiceImpl.*(..))"/>
+		</aop:aspect>
+		
+	</aop:config>
+	
+</beans>
