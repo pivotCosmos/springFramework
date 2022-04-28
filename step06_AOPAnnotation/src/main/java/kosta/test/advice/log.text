@@ -1,0 +1,27 @@
+start / 인수 개수 : 1개 / 리턴 값: null / 총 실행 시간 nanos: 176300nanos
+pause / 인수 개수 : 0개 / 리턴 값: TvImpl 리턴값!! / 총 실행 시간 nanos: 40200nanos
+stop / 인수 개수 : 0개 / 리턴 값: null / 총 실행 시간 nanos: 24000nanos
+start / 인수 개수 : 1개 / 리턴 값: null / 총 실행 시간 nanos: 21500nanos
+pause / 인수 개수 : 0개 / 리턴 값: Audio pause리턴!! / 총 실행 시간 nanos: 19400nanos
+stop / 인수 개수 : 0개 / 리턴 값: null / 총 실행 시간 nanos: 17500nanos
+start / 인수 개수 : 1개 / 리턴 값: null / 총 실행 시간 nanos: 24100nanos
+pause / 인수 개수 : 0개 / 리턴 값: Vedio리턴값! / 총 실행 시간 nanos: 19400nanos
+stop / 인수 개수 : 0개 / 리턴 값: null / 총 실행 시간 nanos: 19100nanos
+start / 인수 개수 : 1개 / 리턴 값: null / 총 실행 시간 nanos: 858100nanos
+pause / 인수 개수 : 0개 / 리턴 값: TvImpl 리턴값!! / 총 실행 시간 nanos: 69300nanos
+stop / 인수 개수 : 0개 / 리턴 값: null / 총 실행 시간 nanos: 27300nanos
+start / 인수 개수 : 1개 / 리턴 값: null / 총 실행 시간 nanos: 24300nanos
+pause / 인수 개수 : 0개 / 리턴 값: Audio pause리턴!! / 총 실행 시간 nanos: 19100nanos
+stop / 인수 개수 : 0개 / 리턴 값: null / 총 실행 시간 nanos: 19000nanos
+start / 인수 개수 : 1개 / 리턴 값: null / 총 실행 시간 nanos: 25400nanos
+pause / 인수 개수 : 0개 / 리턴 값: Vedio리턴값! / 총 실행 시간 nanos: 20000nanos
+stop / 인수 개수 : 0개 / 리턴 값: null / 총 실행 시간 nanos: 21900nanos
+start / 인수 개수 : 1개 / 리턴 값: null / 총 실행 시간 nanos: 173600nanos
+pause / 인수 개수 : 0개 / 리턴 값: TvImpl 리턴값!! / 총 실행 시간 nanos: 36400nanos
+stop / 인수 개수 : 0개 / 리턴 값: null / 총 실행 시간 nanos: 21800nanos
+start / 인수 개수 : 1개 / 리턴 값: null / 총 실행 시간 nanos: 23900nanos
+pause / 인수 개수 : 0개 / 리턴 값: Audio pause리턴!! / 총 실행 시간 nanos: 18400nanos
+stop / 인수 개수 : 0개 / 리턴 값: null / 총 실행 시간 nanos: 18800nanos
+start / 인수 개수 : 1개 / 리턴 값: null / 총 실행 시간 nanos: 24100nanos
+pause / 인수 개수 : 0개 / 리턴 값: Vedio리턴값! / 총 실행 시간 nanos: 26500nanos
+stop / 인수 개수 : 0개 / 리턴 값: null / 총 실행 시간 nanos: 19400nanos
