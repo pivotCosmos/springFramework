@@ -1,0 +1,9 @@
+start / 인수 개수 : 1개 / 리턴 값: null / 총 실행 시간 nanos : 225600nanos
+pause / 인수 개수 : 0개 / 리턴 값: 안녕 / 총 실행 시간 nanos : 46100nanos
+stop / 인수 개수 : 0개 / 리턴 값: null / 총 실행 시간 nanos : 44500nanos
+start / 인수 개수 : 1개 / 리턴 값: null / 총 실행 시간 nanos : 39500nanos
+pause / 인수 개수 : 0개 / 리턴 값: 안녕 / 총 실행 시간 nanos : 28600nanos
+stop / 인수 개수 : 0개 / 리턴 값: null / 총 실행 시간 nanos : 25000nanos
+start / 인수 개수 : 1개 / 리턴 값: null / 총 실행 시간 nanos : 47400nanos
+pause / 인수 개수 : 0개 / 리턴 값: 하이 / 총 실행 시간 nanos : 28800nanos
+stop / 인수 개수 : 0개 / 리턴 값: null / 총 실행 시간 nanos : 23900nanos
