@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="joinMapper">
+
+	<sql id="selectEmpJoinSalSQL">
+		SELECT empno, ename, job, sal, grade, losal, hisal
+		FROM emp e JOIN salgrade s
+		ON e.sal BETWEEN s.losal AND s.hisal
+	</sql>
+	
+	<!-- 1-1번 문제 1 : 1인 경우 -->
+	<resultMap type="empDTO" id="selectOneMap">
+		<id column="empno" property="empno"/>
+		<result column="ename" property="ename"/>
+		
+		<association property="deptDTO" javaType="deptDTO">
+			<id column="deptno" property="deptno"/>
+			<result column="dname" property="dname"/>
+			<result column="loc" property="loc"/>
+		</association>
+	</resultMap>
+	
+	<!-- 1-2번 문제 1 : 다 -->
+	<resultMap type="deptDTO" id="selectTwoMap">
+		<id column="deptno" property="deptno"/>
+		<result column="dname" property="dname"/>
+		<result column="loc" property="loc"/>
+		
+		<collection property="empList" ofType="empDTO">
+			<id column="empno" property="empno"/>
+			<result column="ename" property="ename"/>
+		</collection>
+	</resultMap>
+	
+	<!-- 사원정보를 기준으로 급여 등급 매핑 - 1 : 1 -->
+	<resultMap type="empDTO" id="selectThreeMap">
+		<id column="empno" property="empno"/>
+		<result column="ename" property="ename"/>
+		<result column="job" property="job"/>
+		<result column="sal" property="sal"/>
+		
+		<association property="salgradeDTO" javaType="salgradeDTO">
+			<id column="grade" property="grade"/>
+			<result column="losal" property="losal"/>
+			<result column="hisal" property="hisal"/>
+		</association>
+	</resultMap>
+	
+	<!-- 각 등급별 사원의 정보 검색 1 : 다 -->
+	<resultMap type="salgradeDTO" id="selectFourMap">
+		<id column="grade" property="grade"/>
+		<result column="losal" property="losal"/>
+		<result column="hisal" property="hisal"/>
+		
+		<collection property="empList" ofType="empDTO">
+			<id column="empno" property="empno"/>
+			<result column="ename" property="ename"/>
+			<result column="job" property="job"/>
+			<result column="sal" property="sal"/>
+		</collection>
+	</resultMap>
+	
+	
+	<select id="selectOne" parameterType="int" resultMap="selectOneMap">
+		SELECT d.dname, d.loc, e.empno, e.ename
+		FROM emp e JOIN dept d
+		ON e.deptno = d.deptno
+		<if test="empno>0">
+			where e.empno = #{_parameter}
+		</if>
+	</select>
+	
+	<select id="selectTwo" resultMap="selectTwoMap">
+		SELECT d.deptno, d.dname, d.loc, e.empno, e.ename
+		FROM emp e JOIN dept d
+		ON e.deptno = d.deptno
+		<where>
+			<if test="dname!=null">
+				upper(d.dname)=upper(#{_parameter})
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectThree" resultMap="selectThreeMap">
+		<include refid="selectEmpJoinSalSQL"/>
+	</select>
+	
+	<select id="selectFour" resultMap="selectFourMap">
+		<include refid="selectEmpJoinSalSQL"/>
+	</select>
+	
+</mapper>
