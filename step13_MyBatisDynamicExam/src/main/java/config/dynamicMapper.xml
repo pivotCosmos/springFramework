@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="dynamicMapper">
+
+	<!-- 공유쿼리 -->
+	<sql id="productSelectSQL">
+		select * from productList
+	</sql>
+	
+	
+	<!-- 등록 -->
+	<update id="insert" parameterType="productDTO">
+		insert into productlist
+		values(#{code},upper(#{name}),#{qty},#{price},#{detail})
+	</update>
+	
+	<!-- 검색
+		keyField, keyWord, orderBy를 map으로 받기
+	 -->
+	<select id="select" parameterType="map" resultType="productDTO">
+		<include refid="productSelectSQL"/>
+		<where>
+			<if test="keyField!=null and keyWord!=null">
+				${keyField} like '%' || upper(#{keyWord}) || '%'
+			</if>
+		</where>
+		
+		<if test="orderWord!=null">
+			order by ${orderWord}
+			<choose>
+				<when test="sort==0">
+					desc
+				</when>
+				<otherwise>
+					asc
+				</otherwise>
+			</choose>
+		</if>
+	</select>
+	
+	<!-- 수정 -->
+	<update id="update" parameterType="productDTO">
+		update productlist
+		<set>
+			<if test="name!=null">
+				name=#{name},
+			</if>
+			<if test="qty>0">
+				qty=#{qty},
+			</if>
+			<if test="price>0">
+				price=#{price},
+			</if>
+			<if test="detail!=null">
+				detail=#{detail}
+			</if>
+		</set>
+		<where>
+			code=#{code}
+		</where>
+	</update>
+	
+	<!-- 삭제 -->
+	<update id="delete" parameterType="string">
+		delete productlist
+		where code = #{_parameter}
+	</update>
+	
+	<!-- 모든상품의 qty의총합계 -->
+	<select id="selectQtySum" resultType="int">
+		select sum(qty) from productlist
+	</select>
+	
+	<!-- 상품코드로 상품 검색하기 -->
+	<select id="selectByCode" parameterType="list" resultType="productDTO">
+		<include refid="productSelectSQL"/>
+		<where>
+			code in
+			<foreach collection="list" item="item" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+		</where>
+	</select>
+</mapper>
