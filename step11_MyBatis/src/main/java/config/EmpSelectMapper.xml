@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="empSelectMapper">
+
+	<!-- 자주 사용되는 문장을 미리 선언해서 include를 이용해서 참조한다. -->
+	<sql id="empSelectSQL">
+		select empno, ename as empname, job, sal, hiredate from emp
+	</sql>
+	
+	<!-- 전체검색 -->
+	<select id="selectAll" resultType="empDTO">
+		<include refid="empSelectSQL"/>
+		order by empno
+	</select>
+	
+	
+	<!-- 사원번호에 해당하는 사원정보검색 -->
+	<select id="selectByEmpno" parameterType="int" resultType="empDTO">
+		<include refid="empSelectSQL"/>
+		where empno=#{_parameter}
+	</select>
+	
+	<!-- 인수로 전달된 급여보다 적게 받는 사원 검색 -->
+	<select id="selectLessthanSal" parameterType="int" resultType="empDTO">
+		<include refid="empSelectSQL"/>
+		where sal &lt; #{_parameter}
+		order by sal
+	</select>
+	
+	<!-- 인수로 전달된 최소 ~ 최대 범위안에 급여를 받는 사원 검색 -->
+	<select id="selectMinMax" parameterType="map" resultType="empDTO">
+		<include refid="empSelectSQL"/>
+		where sal between #{min} and #{max} <!-- key를 써서 map에서 꺼낸다 -->
+		order by sal
+	</select>
+	
+	<!-- 정렬대상 컬럼명을 인수로 전달받아 정렬하기 -->
+	<select id="selectOrder" parameterType="string" resultType="empDTO">
+		<include refid="empSelectSQL"/>
+		order by ${_parameter} <!-- ${}하면 statement, #{}하면 preparedStatement -->
+	</select>
+	
+	<!-- 검색필드와 검색단어 또는 사원번호 또는 급여에 해당하는 레코드 검색 -->
+	<select id="selectWhereMix" parameterType="map" resultType="empDTO">
+		<include refid="empSelectSQL"/>
+		where upper(${keyField}) like '%' || upper(#{keyWord}) || '%' 
+		or empno=#{dto.empno} 
+		or sal > #{dto.sal}
+	</select>
+	
+</mapper>

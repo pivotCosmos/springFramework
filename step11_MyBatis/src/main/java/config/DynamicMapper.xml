@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="dynamicMapper">
+
+	<!-- 
+	   1. emp테이블에서 조건에 따라 검색하기
+	    
+	      ename이 들어오면 ename에 해당하는 레코드 검색 or
+	      job이 들어오면 job에 해당하는 레코드 검색 
+	      둘다 들어오면 ename과 job을 조건으로 사용.
+	      
+	      select * from emp;
+	
+	      select * from emp where empName="";
+	
+	      select * from emp where empName="" and job="";
+	
+	      select * from emp where  job="";
+	-->
+	<!-- <select id="ifSelect" parameterType="empDTO" resultType="empDTO">
+		<include refid="empSelectMapper.empSelectSQL"/>
+		<where>
+			<if test="empName!=null">
+				ename = #{empName} 
+			</if>		
+			<if test="job!=null">
+				and upper(job)=upper(#{job})
+			</if>
+		</where>
+	</select> 
+	-->
+	<!--
+	  : 위의 where태그로 만들 쿼리를 trim으로 변경해본다.
+	     
+		*trim 요소
+		prefix="처리후 엘리먼트 내용이 있으면 가장 앞에 붙여준다"  
+		prefixOverrides="처리후 엘리먼트 내용중 가장 앞에 해당 문자들이 있다면 자동삭제" 
+	      
+		suffix="처리후 엘리먼트 내용이 있으면 가장 뒤에 붙여준다." 
+		suffixOverrides="처리후 엘리먼트 내용중 가장 뒤에 해당 문자들이 있다면 자동삭제"
+	-->
+	
+	<select id="ifSelect" parameterType="empDTO" resultType="empDTO">
+		<include refid="empSelectMapper.empSelectSQL"/>
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="empName!=null">
+				ename = #{empName} 
+			</if>		
+			<if test="job!=null">
+				and upper(job)=upper(#{job})
+			</if>
+		</trim>
+	</select> 
+	
+	<!--
+		레코드 수정
+		ename, job, sal 의 항목이 각각 null이 아닐때 empno에 해당하는
+		레코드 수정한다.
+		update emp  set ename=?  where empno=?;
+		update emp  set job=?  where empno=?;
+		update emp  set sal=?  where empno=?;
+     
+		update emp  set ename=? ,job=? where empno=?;
+	-->
+	<!-- <update id="setTest" parameterType="empDTO">
+		update emp
+		<set>
+			<if test="empName!=null">
+				ename=#{empName} ,
+			</if>
+			<if test="job!=null">
+				job=#{job} ,
+			</if>
+			<if test="sal>0">
+				sal=#{sal}
+			</if>
+		</set>
+		<where>
+			empno=#{empno}
+		</where>
+	</update> -->
+	
+	<!-- 
+		위 update문장의 set을 trim으로 변경해보자.
+	 -->
+	<update id="setTest" parameterType="empDTO">
+		update emp
+		<trim prefix="set" suffixOverrides=",">
+			<if test="empName!=null">
+				ename=#{empName} ,
+			</if>
+			<if test="job!=null">
+				job=#{job} ,
+			</if>
+			<if test="sal>0">
+				sal=#{sal}
+			</if>
+		</trim>
+		<where>
+			empno=#{empno}
+		</where>
+	</update>
+	
+	<!-- 
+		select * from emp
+		where empno in (7777);
+      
+		select * from emp
+		where empno in (7777,222,444,....);
+
+	-->
+	<select id="forEachTest" parameterType="list" resultType="empDTO">
+		<include refid="empSelectMapper.empSelectSQL"/>
+		<where>
+			empno in
+			<foreach collection="list" item="item" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+		</where>
+	</select>
+	 
+	 
+	 
+</mapper>

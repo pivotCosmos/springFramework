@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="empMapper">
+
+	<!-- 필요한 쿼리작성(CRUD작업) -->
+	<select id="selectByEname" resultType="string" >
+		select ename from emp
+	</select>
+	
+	<!-- 등록하기 -->
+	<select id="insert" parameterType="empDTO">
+		insert into emp(empno, ename, job, sal, hiredate) 
+		values(#{empno},#{empName},#{job},#{sal},sysdate)
+	</select>
+	
+	<!-- 삭제하기 -->
+	<select id="delete" parameterType="int">
+		delete from emp where empno=#{_parameter}<!-- 하나일땐 이름 무관. 하지만 관례를 따르자. -->
+	</select>
+	
+	<!-- 수정하기 (사원번호에 해당하는 ename, job, sal 수정하기 ) -->
+	<select id="update" parameterType="empDTO">
+		update emp set ename=#{empName}, job=#{job}, sal=#{sal} where empno=#{empno}
+	</select>
+	
+	<!-- emp에서 job에 해당하는 레코드 검색
+		  : 다른 mapper에 있는 id를 참조할때는
+		    namespace이름.id로 접근한다.
+	 -->
+	<select id="selectByJob" parameterType="string" resultType="empDTO">
+		<include refid="empSelectMapper.empSelectSQL"/>
+		where lower(job)=lower(#{_parameter})
+	</select>
+	
+	<!-- Member테이블의 모든 레코드 검색하기 -->
+	<select id="memberSelectAll" resultType="memberDTO">
+		select user_id, user_name, user_age, user_addr from member
+	</select>
+	
+	
+	
+</mapper>
